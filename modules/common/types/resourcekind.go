@@ -34,6 +34,7 @@ const (
 	ResourceKindNamespace                = "namespace"
 	ResourceKindNode                     = "node"
 	ResourceKindPersistentVolumeClaim    = "persistentvolumeclaim"
+	ResourceKindPodDisruptionBudget      = "poddisruptionbudget"
 	ResourceKindPersistentVolume         = "persistentvolume"
 	ResourceKindCustomResourceDefinition = "customresourcedefinition"
 	ResourceKindPod                      = "pod"
@@ -75,6 +76,8 @@ func (k ResourceKind) Scalable() bool {
 func (k ResourceKind) Restartable() bool {
 	restartable := []ResourceKind{
 		ResourceKindDeployment,
+		ResourceKindDaemonSet,
+		ResourceKindStatefulSet,
 	}
 
 	for _, kind := range restartable {
@@ -85,3 +88,17 @@ func (k ResourceKind) Restartable() bool {
 
 	return false
 }
+
+func (k ResourceKind) String() string {
+	return string(k)
+}
+
+type Verb string
+
+func (in Verb) String() string {
+	return string(in)
+}
+
+const (
+	VerbList = "list"
+)
